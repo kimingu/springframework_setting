@@ -20,4 +20,8 @@ public class MemberRepository {
         // .save -> memberMapper id명
         return sql.insert("Member.save", memberDTO);
     }
+
+    public MemberDTO login(MemberDTO memberDTO) {
+        return sql.selectOne("Member.login",memberDTO);
+    }
 }

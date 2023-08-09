@@ -96,4 +96,11 @@ public class MemberController {
         model.addAttribute("member",memberDTO);
         return "detail";
     }
+
+    // redirect 는 jsp명이 아닌 주소값이 와야함
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id){
+        memberService.delete(id);
+        return "redirect:/member/";
+    }
 }

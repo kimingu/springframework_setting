@@ -12,7 +12,7 @@
 
 <script>
     const update = () =>{
-        location.href = "/member/updata";
+        location.href = "/member/update";
     }
 
     const logout = () =>{

@@ -26,7 +26,7 @@ public class MemberController {
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDTO memberDTO){
         // ModelAttribute jsp form 필드에 있는 값을 dto와 매치 시켜서 가져옴
-        // 필드의 name값이랑 dto 변수명일아 다르면 x
+        // 필드의 name값이랑 dto 변수명이랑 다르면 x
         // memberDTO 객체로 가져온다.
         // 흐름 jsp -> controller(dto에 매칭된? 값) -> service -> Repository
         // 받을때는 위에 역순
@@ -102,5 +102,29 @@ public class MemberController {
     public String delete(@RequestParam("id") Long id){
         memberService.delete(id);
         return "redirect:/member/";
+    }
+
+    // 수정 화면 요청
+    @GetMapping("/update")
+    public String updateForm(HttpSession session, Model model){
+       // 세션에 저장된 나의 이메일 가져오기
+       String loginEmail = (String)session.getAttribute("loginEmail");
+
+       MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+       model.addAttribute("member",memberDTO);
+
+        return "update";
+    }
+
+    // 수정 처리 (기능)
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO){
+        boolean result = memberService.update(memberDTO);
+        if(result){
+            return "redirect:/member?id=" + memberDTO.getId();
+        }else{
+            return "index";
+        }
+
     }
 }

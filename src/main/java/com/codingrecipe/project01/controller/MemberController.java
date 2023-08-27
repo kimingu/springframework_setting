@@ -125,6 +125,12 @@ public class MemberController {
         }else{
             return "index";
         }
+    }
 
+    @PostMapping("/email-check")
+    public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail){
+        System.out.println("memberEail"+ memberEmail);
+        String checkResult = memberService.emailCheck(memberEmail);
+        return checkResult;
     }
 }
